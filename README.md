@@ -6,4 +6,4 @@
 5.Lex program to find out total number of vowels and consonants from given input string.\
 6.Yacc specification to recognize valid arithmetic expression that uses operators +,-,*,/ and parenthesis.\
 7.Implement calculator using Lex and Yacc.\
-8.Convert Expression to AST and traverse it to find result.\
+8.Convert Expression to AST and traverse it to find result.
