@@ -70,32 +70,32 @@
 /* Line 189 of yacc.c  */
 #line 1 "exp8.y"
 
-	#include <stdio.h>
-	#include <string.h>
-	#include <stdlib.h>
-
+	#include<stdlib.h>
+	#include<string.h>
+	#include<stdio.h>
+	#include<math.h>
+	#define YYSTYPE struct node*
 	typedef struct node
 	{
 		struct node *left;
 		struct node *right;
-		char *token;
+		char* token;
 	}node;
 
 	int yyerror(char *);
 	node *mknode(node *left, node *right, char *token);
 	void makepostfix(node *tree);
 	void printLevelOrder(node *root);
-	void printCurrentLevel(node* root, int level);
+	void printCurrentLevel(node *root, int level);
 	int height(node* node);
-	char postfixexp[50][50];
 	void printpostfix(char postfixexp[50][50]);
 	void evalpostfix(char postfixexp[50][50]);
-	#define YYSTYPE struct node*
+	char postfixexp[50][50];
 	int num = 0;
 	int p = 0;
 	int limit = 1;
 	int h;
-	int tabs = 4;
+	int tabs;
 
 
 /* Line 189 of yacc.c  */
@@ -430,7 +430,7 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    35,    35,    44,    45,    46,    47,    48,    49
+       0,    35,    35,    43,    44,    45,    46,    47,    48
 };
 #endif
 
@@ -1332,56 +1332,56 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 35 "exp8.y"
-    { 	
-					printf("\nAbstract syntax tree:\n");
- 					printLevelOrder((yyvsp[(1) - (1)]));
-   					makepostfix((yyvsp[(1) - (1)]));
-					printf("\nPostfix traversal and evaluation: \n");
-    				printpostfix(postfixexp);
-					evalpostfix(postfixexp);
-				}
+    {
+			printf("\nAbstract Syntax Tree: \n");
+			printLevelOrder((yyvsp[(1) - (1)]));
+			makepostfix((yyvsp[(1) - (1)]));
+			printf("\nPostfix traversal and evaluation: \n");
+			printpostfix(postfixexp);
+			evalpostfix(postfixexp);
+		}
     break;
 
   case 3:
 
 /* Line 1455 of yacc.c  */
-#line 44 "exp8.y"
-    {(yyval) = mknode((yyvsp[(1) - (3)]), (yyvsp[(3) - (3)]), "+");}
+#line 43 "exp8.y"
+    {(yyval) = mknode((yyvsp[(1) - (3)]),(yyvsp[(3) - (3)]), "+");}
     break;
 
   case 4:
 
 /* Line 1455 of yacc.c  */
-#line 45 "exp8.y"
-    {(yyval) = mknode((yyvsp[(1) - (3)]), (yyvsp[(3) - (3)]), "-");}
+#line 44 "exp8.y"
+    {(yyval) = mknode((yyvsp[(1) - (3)]),(yyvsp[(3) - (3)]), "-");}
     break;
 
   case 5:
 
 /* Line 1455 of yacc.c  */
-#line 46 "exp8.y"
-    {(yyval) = mknode((yyvsp[(1) - (3)]), (yyvsp[(3) - (3)]), "*");}
+#line 45 "exp8.y"
+    {(yyval) = mknode((yyvsp[(1) - (3)]),(yyvsp[(3) - (3)]), "*");}
     break;
 
   case 6:
 
 /* Line 1455 of yacc.c  */
-#line 47 "exp8.y"
-    {(yyval) = mknode((yyvsp[(1) - (3)]), (yyvsp[(3) - (3)]), "/");}
+#line 46 "exp8.y"
+    {(yyval) = mknode((yyvsp[(1) - (3)]),(yyvsp[(3) - (3)]), "/");}
     break;
 
   case 7:
 
 /* Line 1455 of yacc.c  */
-#line 48 "exp8.y"
+#line 47 "exp8.y"
     {(yyval) = (yyvsp[(2) - (3)]);}
     break;
 
   case 8:
 
 /* Line 1455 of yacc.c  */
-#line 49 "exp8.y"
-    {(yyval) = mknode(NULL,NULL,(char *)yylval);}
+#line 48 "exp8.y"
+    {(yyval) = mknode(NULL,NULL,(char*)yylval);}
     break;
 
 
@@ -1599,20 +1599,22 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 52 "exp8.y"
+#line 49 "exp8.y"
 
 
-int main () 
+int main()
 {
 	printf("Enter expression: ");
-	return yyparse();
+	yyparse();
 }
-
-node *mknode(node *left, node *right, char *token)
-{ 	
+	
+node *mknode(node *left, node* right, char *token)
+{
 	node *newnode = (node *)malloc(sizeof(node));
+	
 	char *newstr = (char *)malloc(strlen(token)+1);
 	strcpy(newstr, token);
+	newstr[strlen(newstr)] = '\0';
 	newnode->left = left;
 	newnode->right = right;
 	newnode->token = newstr;
@@ -1628,68 +1630,73 @@ void makepostfix(node *tree)
 	strcpy(postfixexp[p++], tree->token);
 }
 
-void printLevelOrder(node* root)
+void printLevelOrder(node *root)
 {
-    h = height(root);
-    int i;
-    for (i = 1; i <= h; i++)
-        printCurrentLevel(root, i);
+	h = height(root);
+	tabs = 1;
+	for(int j = 0; j < h-1; j++)
+		tabs *= 2;
+	
+	int i;
+	for(i = 1; i<=h; i++)
+		printCurrentLevel(root, i);
 }
- 
+
 void printCurrentLevel(node* root, int level)
 {
-    if (root == NULL)
+	if(root==NULL)
 	{
-		for(int k = 0; k <= tabs; k++)
+		for(int k = 0; k < tabs*2; k++)
 			printf(" ");
-        printf("N");
-		for(int k = 0; k < tabs/2; k++)
-			printf("  ");
+		printf(" ");
+		for(int k = 0; k < tabs*2-1; k++)
+			printf(" ");
 		num++;
 		if(num == limit)
 		{
 			printf("\n\n");
 			limit*=2;
 			num = 0;
-			tabs--;
+			tabs/=2;
 		}
 		return;
 	}
-    if (level == 1)
+	if(level == 1)
 	{
-		for(int k = 0; k <= tabs; k++)
+		for(int k = 0; k < tabs*2; k++)
 			printf(" ");
-        printf("%s", root->token);
-		for(int k = 0; k < tabs/2; k++)
-			printf("  ");
+		printf("%s", root->token);
+		for(int k = 0; k < tabs*2-1; k++)
+			printf(" ");
 		num++;
 		if(num == limit)
 		{
 			printf("\n\n");
 			limit*=2;
 			num = 0;
-			tabs--;
+			tabs/=2;
 		}
 	}
-    else if (level > 1) {
-        printCurrentLevel(root->left, level - 1);
-        printCurrentLevel(root->right, level - 1);
-    }
+	else if(level > 1)
+	{
+		printCurrentLevel(root->left, level - 1);
+		printCurrentLevel(root->right, level - 1);
+	}
 }
- 
 
 int height(node* node)
 {
-    if (node == NULL)
-        return 0;
-    else {
-        int lheight = height(node->left);
-        int rheight = height(node->right);
-        if (lheight > rheight)
-            return (lheight + 1);
-        else
-            return (rheight + 1);
-    }
+	if(node==NULL)
+		return 0;
+	else
+	{
+		int lheight = height(node->left);
+		int rheight = height(node->right);
+		if(lheight > rheight)
+			return (lheight + 1);
+		else
+			return (rheight + 1);
+	}
 }
 
 void printpostfix(char postfixexp[50][50])
@@ -1708,11 +1715,11 @@ void evalpostfix(char postfixexp[50][50])
 	int track = 0;
 	while(strcmp(postfixexp[1], "END")!=0)
 	{
-		while(strcmp(postfixexp[track], "+")!=0 && strcmp(postfixexp[track], "-")!=0 && strcmp(postfixexp[track], "*")!=0 && strcmp(postfixexp[track], "/")!=0)
+		while(strcmp(postfixexp[track], "+")!=0 && strcmp(postfixexp[track], "-")!=0 &&strcmp(postfixexp[track], "*")!=0 &&strcmp(postfixexp[track], "/")!=0)
 			track++;
 		strcpy(op, postfixexp[track]);
 		arg1 = atoi(postfixexp[track-2]);
-		arg2 = atoi(postfixexp[track -1]);
+		arg2 = atoi(postfixexp[track-1]);
 		if(strcmp(op, "+")==0)
 			res = arg1 + arg2;
 		else if(strcmp(op, "-")==0)
@@ -1721,6 +1728,7 @@ void evalpostfix(char postfixexp[50][50])
 			res = arg1 * arg2;
 		else if(strcmp(op, "/")==0)
 			res = arg1 / arg2;
+			
 		sprintf(postfixexp[track-2], "%d", res);
 		int temp = track;
 		track-=2;
@@ -1733,8 +1741,8 @@ void evalpostfix(char postfixexp[50][50])
 	}
 	return;
 }
-int yyerror (char *s) 
+int yyerror(char *s)
 {
-	printf("\ninvalid");
-	exit(0);
+	printf("\nInvalid");
 }
+

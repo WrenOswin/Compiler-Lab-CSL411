@@ -1,64 +1,62 @@
 %{
-	#include <stdio.h>
-	#include <string.h>
-	#include <stdlib.h>
-
+	#include<stdlib.h>
+	#include<string.h>
+	#include<stdio.h>
+	#include<math.h>
+	#define YYSTYPE struct node*
+	
 	typedef struct node
 	{
 		struct node *left;
 		struct node *right;
-		char *token;
+		char* token;
 	}node;
 
 	int yyerror(char *);
 	node *mknode(node *left, node *right, char *token);
 	void makepostfix(node *tree);
 	void printLevelOrder(node *root);
-	void printCurrentLevel(node* root, int level);
+	void printCurrentLevel(node *root, int level);
 	int height(node* node);
-	char postfixexp[50][50];
 	void printpostfix(char postfixexp[50][50]);
 	void evalpostfix(char postfixexp[50][50]);
-	#define YYSTYPE struct node*
+	char postfixexp[50][50];
 	int num = 0;
 	int p = 0;
 	int limit = 1;
 	int h;
-	int tabs = 4;
+	int tabs;
 %}
 
 %token NUMBER
 %left '+' '-'
 %left '*' '/'
 
-%% 
-line: exp 		{ 	
-					printf("\nAbstract syntax tree:\n");
- 					printLevelOrder($1);
-   					makepostfix($1);
-					printf("\nPostfix traversal and evaluation: \n");
-    				printpostfix(postfixexp);
-					evalpostfix(postfixexp);
-				}
-
-exp :  exp'+'exp 	{$$ = mknode($1, $3, "+");}
-| exp'-'exp 	{$$ = mknode($1, $3, "-");}
-| exp'*'exp 	{$$ = mknode($1, $3, "*");}
-| exp'/'exp 	{$$ = mknode($1, $3, "/");}
-| '('exp')'		{$$ = $2;}
-| NUMBER 		{$$ = mknode(NULL,NULL,(char *)yylval);}
-;
-
+%%
+line:exp	{
+			printf("\nAbstract Syntax Tree: \n");
+			printLevelOrder($1);
+			makepostfix($1);
+			printf("\nPostfix traversal and evaluation: \n");
+			printpostfix(postfixexp);
+			evalpostfix(postfixexp);
+		}
+exp:	exp'+'exp	{$$ = mknode($1,$3, "+");}
+|	exp'-'exp	{$$ = mknode($1,$3, "-");}
+|	exp'*'exp	{$$ = mknode($1,$3, "*");}
+|	exp'/'exp	{$$ = mknode($1,$3, "/");}
+|	'('exp')'	{$$ = $2;}
+|	NUMBER	{$$ = mknode(NULL,NULL,(char*)yylval);}
 %%
 
-int main () 
+int main()
 {
 	printf("Enter expression: ");
-	return yyparse();
+	yyparse();
 }
-
-node *mknode(node *left, node *right, char *token)
-{ 	
+	
+node *mknode(node *left, node* right, char *token)
+{
 	node *newnode = (node *)malloc(sizeof(node));
 	char *newstr = (char *)malloc(strlen(token)+1);
 	strcpy(newstr, token);
@@ -68,6 +66,76 @@ node *mknode(node *left, node *right, char *token)
 	return(newnode);
 }
 
+
+
+void printLevelOrder(node *root)
+{
+	h = height(root);
+	tabs = 1;
+	for(int j = 0; j < h-1; j++)
+		tabs *= 2;
+	
+	int i;
+	for(i = 1; i<=h; i++)
+		printCurrentLevel(root, i);
+}
+
+void printCurrentLevel(node* root, int level)
+{
+	if(root==NULL)
+	{
+		for(int k = 0; k < tabs*2; k++)
+			printf(" ");
+		printf(" ");
+		for(int k = 0; k < tabs*2-1; k++)
+			printf(" ");
+		num++;
+		if(num == limit)
+		{
+			printf("\n\n");
+			limit*=2;
+			num = 0;
+			tabs/=2;
+		}
+		return;
+	}
+	if(level == 1)
+	{
+		for(int k = 0; k < tabs*2; k++)
+			printf(" ");
+		printf("%s", root->token);
+		for(int k = 0; k < tabs*2-1; k++)
+			printf(" ");
+		num++;
+		if(num == limit)
+		{
+			printf("\n\n");
+			limit*=2;
+			num = 0;
+			tabs/=2;
+		}
+	}
+	else if(level > 1)
+	{
+		printCurrentLevel(root->left, level - 1);
+		printCurrentLevel(root->right, level - 1);
+	}
+}
+
+int height(node* node)
+{
+	if(node==NULL)
+		return 0;
+	else
+	{
+		int lheight = height(node->left);
+		int rheight = height(node->right);
+		if(lheight > rheight)
+			return (lheight + 1);
+		else
+			return (rheight + 1);
+	}
+}
 void makepostfix(node *tree)
 {
 	if(tree->left)
@@ -76,71 +144,6 @@ void makepostfix(node *tree)
 		makepostfix(tree->right);
 	strcpy(postfixexp[p++], tree->token);
 }
-
-void printLevelOrder(node* root)
-{
-    h = height(root);
-    int i;
-    for (i = 1; i <= h; i++)
-        printCurrentLevel(root, i);
-}
- 
-void printCurrentLevel(node* root, int level)
-{
-    if (root == NULL)
-	{
-		for(int k = 0; k <= tabs; k++)
-			printf(" ");
-        printf("N");
-		for(int k = 0; k < tabs/2; k++)
-			printf("  ");
-		num++;
-		if(num == limit)
-		{
-			printf("\n\n");
-			limit*=2;
-			num = 0;
-			tabs--;
-		}
-		return;
-	}
-    if (level == 1)
-	{
-		for(int k = 0; k <= tabs; k++)
-			printf(" ");
-        printf("%s", root->token);
-		for(int k = 0; k < tabs/2; k++)
-			printf("  ");
-		num++;
-		if(num == limit)
-		{
-			printf("\n\n");
-			limit*=2;
-			num = 0;
-			tabs--;
-		}
-	}
-    else if (level > 1) {
-        printCurrentLevel(root->left, level - 1);
-        printCurrentLevel(root->right, level - 1);
-    }
-}
- 
-
-int height(node* node)
-{
-    if (node == NULL)
-        return 0;
-    else {
-        int lheight = height(node->left);
-        int rheight = height(node->right);
-        if (lheight > rheight)
-            return (lheight + 1);
-        else
-            return (rheight + 1);
-    }
-}
-
 void printpostfix(char postfixexp[50][50])
 {
 	strcpy(postfixexp[p], "END");
@@ -157,11 +160,11 @@ void evalpostfix(char postfixexp[50][50])
 	int track = 0;
 	while(strcmp(postfixexp[1], "END")!=0)
 	{
-		while(strcmp(postfixexp[track], "+")!=0 && strcmp(postfixexp[track], "-")!=0 && strcmp(postfixexp[track], "*")!=0 && strcmp(postfixexp[track], "/")!=0)
+		while(strcmp(postfixexp[track], "+")!=0 && strcmp(postfixexp[track], "-")!=0 &&strcmp(postfixexp[track], "*")!=0 &&strcmp(postfixexp[track], "/")!=0)
 			track++;
 		strcpy(op, postfixexp[track]);
 		arg1 = atoi(postfixexp[track-2]);
-		arg2 = atoi(postfixexp[track -1]);
+		arg2 = atoi(postfixexp[track-1]);
 		if(strcmp(op, "+")==0)
 			res = arg1 + arg2;
 		else if(strcmp(op, "-")==0)
@@ -170,6 +173,7 @@ void evalpostfix(char postfixexp[50][50])
 			res = arg1 * arg2;
 		else if(strcmp(op, "/")==0)
 			res = arg1 / arg2;
+			
 		sprintf(postfixexp[track-2], "%d", res);
 		int temp = track;
 		track-=2;
@@ -182,8 +186,7 @@ void evalpostfix(char postfixexp[50][50])
 	}
 	return;
 }
-int yyerror (char *s) 
+int yyerror(char *s)
 {
-	printf("\ninvalid");
-	exit(0);
+	printf("\nInvalid");
 }
