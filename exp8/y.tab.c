@@ -75,6 +75,7 @@
 	#include<stdio.h>
 	#include<math.h>
 	#define YYSTYPE struct node*
+	
 	typedef struct node
 	{
 		struct node *left;
@@ -99,7 +100,7 @@
 
 
 /* Line 189 of yacc.c  */
-#line 103 "y.tab.c"
+#line 104 "y.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -147,7 +148,7 @@ typedef int YYSTYPE;
 
 
 /* Line 264 of yacc.c  */
-#line 151 "y.tab.c"
+#line 152 "y.tab.c"
 
 #ifdef short
 # undef short
@@ -430,7 +431,7 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    35,    35,    43,    44,    45,    46,    47,    48
+       0,    36,    36,    44,    45,    46,    47,    48,    49
 };
 #endif
 
@@ -1331,7 +1332,7 @@ yyreduce:
         case 2:
 
 /* Line 1455 of yacc.c  */
-#line 35 "exp8.y"
+#line 36 "exp8.y"
     {
 			printf("\nAbstract Syntax Tree: \n");
 			printLevelOrder((yyvsp[(1) - (1)]));
@@ -1345,49 +1346,49 @@ yyreduce:
   case 3:
 
 /* Line 1455 of yacc.c  */
-#line 43 "exp8.y"
+#line 44 "exp8.y"
     {(yyval) = mknode((yyvsp[(1) - (3)]),(yyvsp[(3) - (3)]), "+");}
     break;
 
   case 4:
 
 /* Line 1455 of yacc.c  */
-#line 44 "exp8.y"
+#line 45 "exp8.y"
     {(yyval) = mknode((yyvsp[(1) - (3)]),(yyvsp[(3) - (3)]), "-");}
     break;
 
   case 5:
 
 /* Line 1455 of yacc.c  */
-#line 45 "exp8.y"
+#line 46 "exp8.y"
     {(yyval) = mknode((yyvsp[(1) - (3)]),(yyvsp[(3) - (3)]), "*");}
     break;
 
   case 6:
 
 /* Line 1455 of yacc.c  */
-#line 46 "exp8.y"
+#line 47 "exp8.y"
     {(yyval) = mknode((yyvsp[(1) - (3)]),(yyvsp[(3) - (3)]), "/");}
     break;
 
   case 7:
 
 /* Line 1455 of yacc.c  */
-#line 47 "exp8.y"
+#line 48 "exp8.y"
     {(yyval) = (yyvsp[(2) - (3)]);}
     break;
 
   case 8:
 
 /* Line 1455 of yacc.c  */
-#line 48 "exp8.y"
+#line 49 "exp8.y"
     {(yyval) = mknode(NULL,NULL,(char*)yylval);}
     break;
 
 
 
 /* Line 1455 of yacc.c  */
-#line 1391 "y.tab.c"
+#line 1392 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1599,7 +1600,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 49 "exp8.y"
+#line 50 "exp8.y"
 
 
 int main()
@@ -1611,24 +1612,15 @@ int main()
 node *mknode(node *left, node* right, char *token)
 {
 	node *newnode = (node *)malloc(sizeof(node));
-	
 	char *newstr = (char *)malloc(strlen(token)+1);
 	strcpy(newstr, token);
-	newstr[strlen(newstr)] = '\0';
 	newnode->left = left;
 	newnode->right = right;
 	newnode->token = newstr;
 	return(newnode);
 }
 
-void makepostfix(node *tree)
-{
-	if(tree->left)
-		makepostfix(tree->left);
-	if(tree->right)
-		makepostfix(tree->right);
-	strcpy(postfixexp[p++], tree->token);
-}
+
 
 void printLevelOrder(node *root)
 {
@@ -1698,7 +1690,14 @@ int height(node* node)
 			return (rheight + 1);
 	}
 }
-
+void makepostfix(node *tree)
+{
+	if(tree->left)
+		makepostfix(tree->left);
+	if(tree->right)
+		makepostfix(tree->right);
+	strcpy(postfixexp[p++], tree->token);
+}
 void printpostfix(char postfixexp[50][50])
 {
 	strcpy(postfixexp[p], "END");
