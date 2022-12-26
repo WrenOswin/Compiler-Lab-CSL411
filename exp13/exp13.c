@@ -93,12 +93,10 @@ void fleft(int x)
 		}
 		x--;
 	}
->>>>>>> f7807f48b2f602ae6a8eea3a6ae2e7a392a413d7
 }
 
 void fright(int x)
 {
-<<<<<<< HEAD
   int w=0,flag=0;
   x++;
   while(x!= -1 && str[x]!= '+'&&str[x]!='*'&&str[x]!='\0'&&str[x]!='='&&str[x]!=':'&&str[x]!='-'&&str[x]!='/')
@@ -126,19 +124,4 @@ void main()
   printf("The intermediate code:\n");
   findopr();
   explore();
-=======
-	int w=0,flag=0;
-	x++;
-	while(x!= -1 && str[x]!= '+'&&str[x]!='*'&&str[x]!='\0'&&str[x]!='='&&str[x]!=':'&&str[x]!='-'&&str[x]!='/')
-	{
-		if(str[x]!='$'&& flag==0)
-		{
-			right[w++]=str[x];
-			right[w]='\0';
-			str[x]='$';
-			flag=1;
-		}
-		x++;
-	}
->>>>>>> f7807f48b2f602ae6a8eea3a6ae2e7a392a413d7
 }
