@@ -1,52 +1,41 @@
+/*
+S -> aSbb | e
+Grammar for number of a's, followed by double number of b's
+*/
 #include<stdio.h>
-#include<stdlib.h>
 #include<string.h>
-int ptr;
-char s[200];
-int A()
-{
-    int ret = ptr;
-    if(s[ptr] == 'a')
-    {
-        ptr++;
-        if(s[ptr] == 'b')
-            return 1; 
-        else 
-        {
-            ptr = ret;
-            return 1;
-        }
-    }
-    return 0;
-}
-int S()
-{
-    ptr = 0;
-    if(s[ptr]=='c')
-    {
-        ptr++;
-        if(A())
-        {
-            ptr++;
-            if(s[ptr]=='d')
-                return 1;
-        }
-    }
-    return 0;
-}
+#include<ctype.h>
+int S();
+char string[50];
+int i=0;
+
 int main()
 {
-    printf("Enter string to parse: ");
-    fgets(s, sizeof(s), stdin);
-    int res = S();
-    if(res)
-    	printf("Successfully parsed\n");
+    printf("Enter string: ");
+    scanf("%s",string);
+    if(S() && i==strlen(string)){
+        printf("Accepted\n");
+    }
     else
-    	printf("Rejected string\n");
+        printf("Rejected\n");
     return 0;
 }
-
-/*
-S -> cAd
-A -> ab | a
-*/
+int S(){
+    if(string[i]=='a'){
+        i++;
+        S();
+        if(string[i]=='b'){
+            i++;
+            if(string[i]=='b'){
+                i++;
+                return 1;
+            }  
+            else
+                return 0;
+        }
+        else
+            return 0;
+    }
+    else
+        return 0;
+}
