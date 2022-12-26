@@ -111,17 +111,4 @@ void fright(int x)
     x++;
   }
 }
-struct exp
-{
-  int pos;
-  char op;
-}k[15];
-void main()
-{
-  printf("\t\tINTERMEDIATE CODE GENERATION\n\n");
-  printf("Enter the Expression :");
-  scanf("%s",str);
-  printf("The intermediate code:\n");
-  findopr();
-  explore();
-}
+
