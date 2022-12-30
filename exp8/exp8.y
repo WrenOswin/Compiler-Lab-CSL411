@@ -4,7 +4,6 @@
 	#include<stdio.h>
 	#include<math.h>
 	#define YYSTYPE struct node*
-	
 	typedef struct node
 	{
 		struct node *left;
@@ -34,13 +33,13 @@
 
 %%
 line:exp	{
-			printf("\nAbstract Syntax Tree: \n");
-			printLevelOrder($1);
-			makepostfix($1);
-			printf("\nPostfix traversal and evaluation: \n");
-			printpostfix(postfixexp);
-			evalpostfix(postfixexp);
-		}
+				printf("\nAbstract Syntax Tree: \n");
+				printLevelOrder($1);
+				makepostfix($1);
+				printf("\nPostfix traversal and evaluation: \n");
+				printpostfix(postfixexp);
+				evalpostfix(postfixexp);
+			}
 exp:	exp'+'exp	{$$ = mknode($1,$3, "+");}
 |	exp'-'exp	{$$ = mknode($1,$3, "-");}
 |	exp'*'exp	{$$ = mknode($1,$3, "*");}
@@ -48,13 +47,11 @@ exp:	exp'+'exp	{$$ = mknode($1,$3, "+");}
 |	'('exp')'	{$$ = $2;}
 |	NUMBER	{$$ = mknode(NULL,NULL,(char*)yylval);}
 %%
-
 int main()
 {
 	printf("Enter expression: ");
 	yyparse();
-}
-	
+}	
 node *mknode(node *left, node* right, char *token)
 {
 	node *newnode = (node *)malloc(sizeof(node));
@@ -65,9 +62,6 @@ node *mknode(node *left, node* right, char *token)
 	newnode->token = newstr;
 	return(newnode);
 }
-
-
-
 void printLevelOrder(node *root)
 {
 	h = height(root);
@@ -79,7 +73,6 @@ void printLevelOrder(node *root)
 	for(i = 1; i<=h; i++)
 		printCurrentLevel(root, i);
 }
-
 void printCurrentLevel(node* root, int level)
 {
 	if(root==NULL)
@@ -152,7 +145,6 @@ void printpostfix(char postfixexp[50][50])
 		printf(" %s ", postfixexp[i]);
 	printf("\n");
 }
-
 void evalpostfix(char postfixexp[50][50])
 {
 	char op[5];
@@ -173,7 +165,6 @@ void evalpostfix(char postfixexp[50][50])
 			res = arg1 * arg2;
 		else if(strcmp(op, "/")==0)
 			res = arg1 / arg2;
-			
 		sprintf(postfixexp[track-2], "%d", res);
 		int temp = track;
 		track-=2;

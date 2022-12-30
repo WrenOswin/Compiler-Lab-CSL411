@@ -10,7 +10,6 @@ DIGIT [0-9]
 OP [-+*/=]
 comment "//".*
 
-
 %%
 "if"            {printf("<KEYWORD, %s>\n", yytext);} 
 "then"          {printf("<KEYWORD, %s>\n", yytext);} 
@@ -38,7 +37,6 @@ int main()
     yylex();
     return 0;
 }
-
 
 /*INPUT FILE
 int a = 5;

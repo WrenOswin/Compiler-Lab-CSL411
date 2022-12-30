@@ -18,8 +18,6 @@ void addnewtransdfa(char *);
 void sortandmakeunique(char *);
 int main()
 {
-    printf("Enter number of states for NFA: ");
-    scanf("%d", &n);
     initializeNFAstates();
     inputNFAtransitions();
     printf("NFA\n");
@@ -31,12 +29,12 @@ int main()
 }
 void initializeNFAstates()
 {
+    printf("Enter number of states for NFA: ");
+    scanf("%d", &n);
     char statecode = '0';
     for(int i = 0; i < n; i++)
     {
-        char statename[10]="";
-        strncat(statename, &statecode, 1);
-        strcpy(nfa[i].state, statename);
+        strncpy(nfa[i].state, &statecode, 1);
         statecode++;
     }
 }
@@ -158,7 +156,6 @@ int checkifnew(char *s)
 }
 void addnewtransdfa(char *state)
 {
-    char finaldfirst[] = "", finaldsecond[] = "";
     strcpy(dfa[d].state, state);
     for(int i = 0; i < strlen(state); i++)
     {
@@ -177,15 +174,9 @@ void addnewtransdfa(char *state)
         int i = 0;
         while(strncmp(nfa[i].state, &temp, 1))
             i++;
-        
-        strcpy(finaldfirst, "");
-        strcat(finaldfirst, nfa[i].trans0);
-        strcat(dfa[d].trans0, finaldfirst);
+        strcat(dfa[d].trans0, nfa[i].trans0);
         sortandmakeunique(dfa[d].trans0);
-
-        strcpy(finaldsecond, "");
-        strcat(finaldsecond, nfa[i].trans1);
-        strcat(dfa[d].trans1, finaldsecond);
+        strcat(dfa[d].trans1, nfa[i].trans1);
         sortandmakeunique(dfa[d].trans1);
         k++;
         temp = dfa[d].state[k];
