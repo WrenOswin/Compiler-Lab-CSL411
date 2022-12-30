@@ -13,20 +13,22 @@ int main()
 {
     printf("Enter string: ");
     scanf("%s",string);
-    if(S() && i==strlen(string)){
+    if(S() && i==strlen(string))
         printf("Accepted\n");
-    }
     else
         printf("Rejected\n");
     return 0;
 }
 int S(){
-    if(string[i]=='a'){
+    if(string[i]=='a')
+    {
         i++;
         S();
-        if(string[i]=='b'){
+        if(string[i]=='b')
+        {
             i++;
-            if(string[i]=='b'){
+            if(string[i]=='b')
+            {
                 i++;
                 return 1;
             }  
