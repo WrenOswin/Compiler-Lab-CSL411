@@ -3,7 +3,7 @@
 #include<string.h>
 char ip_sym[15],stack[15];
 int ip_ptr=0, st_ptr=0, len, i;
-char temp[2], temp2[2];
+char temp, temp2;
 char act[15];
 void check();
 int main()
@@ -17,9 +17,8 @@ int main()
 	printf("\n________\t ____________\t\t ______\n");
 	printf("\n$\t\t %s$\t\t\t--", ip_sym);
 	strcpy(act, "shift");
-	temp[0] = ip_sym[ip_ptr];
-	temp[1] = '\0';
-	strcat(act, temp);
+	temp = ip_sym[ip_ptr];
+	strncat(act, &temp, 1);
 	len = strlen(ip_sym);
 	for(i = 0; i <= len-1; i++)
 	{
@@ -29,9 +28,8 @@ int main()
 		ip_ptr++;             
 		printf("\n$%s\t\t%s$\t\t\t%s", stack, ip_sym, act);
 		strcpy(act, "shift");
-		temp[0] = ip_sym[ip_ptr];
-		temp[1] = '\0';
-		strcat(act, temp);
+		temp = ip_sym[ip_ptr];
+		strncat(act, &temp, 1);
 		check();
 		st_ptr++;
 	}
@@ -42,18 +40,17 @@ int main()
 void check()
 {
 	int flag = 0;
-	temp2[0] = stack[st_ptr];
-	temp2[1] = '\0';
-	if((!strcmp(temp2, "a"))||(!strcmp(temp2, "b")))
+	temp2 = stack[st_ptr];
+	if(temp2 == 'a'||temp2 == 'b')
 	{
 		stack[st_ptr] = 'E';
-		if(!strcmp(temp2, "a"))
+		if(temp2 == 'a')
 			printf("\n$%s\t\t%s$\t\t\tE->a", stack, ip_sym);
 		else
 			printf("\n$%s\t\t%s$\t\t\tE->b", stack, ip_sym);
 		flag = 1;
 	}
-	if((!strcmp(temp2, "+"))||(!strcmp(temp2, "*"))||(!strcmp(temp2, "/")))
+	if(temp2 == '+'||temp2 == '*'||temp2 == '/')
 		flag = 1;
 	
 	if((!strcmp(stack, "E+E"))||(!strcmp(stack, "E/E"))||(!strcmp(stack, "E*E")))
