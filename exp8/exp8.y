@@ -4,7 +4,7 @@
 	#include<stdio.h>
 	#include<math.h>
 	#define YYSTYPE struct node*
-	
+
 	struct node
 	{
 		struct node *left;
@@ -28,7 +28,7 @@
 	int tabs;
 %}
 
-%token NUMBER
+%token INTEGER
 %left '+' '-'
 %left '*' '/'
 
@@ -46,7 +46,7 @@ exp:	exp'+'exp	{$$ = mknode($1,$3, "+");}
 |	exp'*'exp	{$$ = mknode($1,$3, "*");}
 |	exp'/'exp	{$$ = mknode($1,$3, "/");}
 |	'('exp')'	{$$ = $2;}
-|	NUMBER	{$$ = mknode(NULL,NULL,(char *)yylval);}
+|	INTEGER	{$$ = mknode(NULL,NULL,(char *)yylval);}
 %%
 int main()
 {

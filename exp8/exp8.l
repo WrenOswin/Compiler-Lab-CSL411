@@ -6,7 +6,7 @@
 %}
 
 %%
-[0-9]+ {yylval = (int)yytext; return NUMBER;}
+[0-9]+ {yylval = (int)yytext; return INTEGER;}
 [ \t] {}
 [\n]  {return 0;}
 .     {return yytext[0];}
