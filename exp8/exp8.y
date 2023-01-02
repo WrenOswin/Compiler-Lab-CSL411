@@ -41,11 +41,11 @@ line:exp	{
 				printpostfix(postfixexp);
 				evalpostfix(postfixexp);
 			}
-exp:	exp'+'exp	{$$ = mknode($1,$3, "+");}
-|	exp'-'exp	{$$ = mknode($1,$3, "-");}
-|	exp'*'exp	{$$ = mknode($1,$3, "*");}
-|	exp'/'exp	{$$ = mknode($1,$3, "/");}
-|	'('exp')'	{$$ = $2;}
+expr:	expr'+'expr	{$$ = mknode($1,$3, "+");}
+|	expr'-'expr	{$$ = mknode($1,$3, "-");}
+|	expr'*'expr	{$$ = mknode($1,$3, "*");}
+|	expr'/'expr	{$$ = mknode($1,$3, "/");}
+|	'('expr')'	{$$ = $2;}
 |	INTEGER	{$$ = mknode(NULL,NULL,(char *)yylval);}
 %%
 int main()
