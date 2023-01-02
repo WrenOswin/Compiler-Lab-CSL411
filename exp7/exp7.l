@@ -7,7 +7,6 @@
 %}
 
 %%
-
 [0-9]+                  {yylval = atoi(yytext);return INTEGER;}                                             
 [ \t]                   ;
 [\n]                    {return 0;}

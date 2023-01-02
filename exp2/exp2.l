@@ -45,7 +45,8 @@ a = b   //comment 1
 //this is last comment
 */
 
-/*OUTPUT
+/*
+OUTPUT
 <KEYWORD, int>
 <IDENTIFIER, a>
 <OPERATOR, =>

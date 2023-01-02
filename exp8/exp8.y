@@ -4,19 +4,20 @@
 	#include<stdio.h>
 	#include<math.h>
 	#define YYSTYPE struct node*
-	typedef struct node
+	
+	struct node
 	{
 		struct node *left;
 		struct node *right;
-		char* token;
-	}node;
+		char token[10];
+	};
 
 	int yyerror(char *);
-	node *mknode(node *left, node *right, char *token);
-	void makepostfix(node *tree);
-	void printLevelOrder(node *root);
-	void printCurrentLevel(node *root, int level);
-	int height(node* node);
+	struct node * mknode(struct node *,struct node *, char *);
+	void makepostfix(struct node *);
+	void printLevelOrder(struct node *);
+	void printCurrentLevel(struct node *, int);
+	int height(struct node*);
 	void printpostfix(char postfixexp[50][50]);
 	void evalpostfix(char postfixexp[50][50]);
 	char postfixexp[50][50];
@@ -45,24 +46,22 @@ exp:	exp'+'exp	{$$ = mknode($1,$3, "+");}
 |	exp'*'exp	{$$ = mknode($1,$3, "*");}
 |	exp'/'exp	{$$ = mknode($1,$3, "/");}
 |	'('exp')'	{$$ = $2;}
-|	NUMBER	{$$ = mknode(NULL,NULL,(char*)yylval);}
+|	NUMBER	{$$ = mknode(NULL,NULL,(char *)yylval);}
 %%
 int main()
 {
 	printf("Enter expression: ");
 	yyparse();
 }	
-node *mknode(node *left, node* right, char *token)
+struct node *mknode(struct node *left,struct node* right, char *ntoken)
 {
-	node *newnode = (node *)malloc(sizeof(node));
-	char *newstr = (char *)malloc(strlen(token)+1);
-	strcpy(newstr, token);
+	struct node *newnode = (struct node *)malloc(sizeof(struct node));
 	newnode->left = left;
 	newnode->right = right;
-	newnode->token = newstr;
+	strcpy(newnode->token, ntoken);
 	return(newnode);
 }
-void printLevelOrder(node *root)
+void printLevelOrder(struct node *root)
 {
 	h = height(root);
 	tabs = 1;
@@ -73,7 +72,7 @@ void printLevelOrder(node *root)
 	for(i = 1; i<=h; i++)
 		printCurrentLevel(root, i);
 }
-void printCurrentLevel(node* root, int level)
+void printCurrentLevel(struct node* root, int level)
 {
 	if(root==NULL)
 	{
@@ -115,7 +114,7 @@ void printCurrentLevel(node* root, int level)
 	}
 }
 
-int height(node* node)
+int height(struct node* node)
 {
 	if(node==NULL)
 		return 0;
@@ -129,7 +128,7 @@ int height(node* node)
 			return (rheight + 1);
 	}
 }
-void makepostfix(node *tree)
+void makepostfix(struct node *tree)
 {
 	if(tree->left)
 		makepostfix(tree->left);
