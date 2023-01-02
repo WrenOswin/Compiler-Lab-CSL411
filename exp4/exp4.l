@@ -16,8 +16,7 @@
 
 int main()
 {
-    FILE *finput = fopen("input", "r");
-    yyin = finput;
+    printf("Enter string: ");
     yylex();
     return 0;
 }

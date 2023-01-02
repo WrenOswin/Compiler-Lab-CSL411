@@ -364,8 +364,8 @@ char *yytext;
 #line 1 "exp4.l"
 #define INITIAL 0
 #line 2 "exp4.l"
-#include<stdio.h>
-#include<stdlib.h>
+    #include<stdio.h>
+    #include<stdlib.h>
 #line 370 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
@@ -1513,8 +1513,7 @@ int main()
 
 int main()
 {
-    FILE *finput = fopen("input", "r");
-    yyin = finput;
+    printf("Enter string: ");
     yylex();
     return 0;
 }
@@ -1523,3 +1522,11 @@ int yywrap()
 {
     return 1;
 }
+
+/*INPUT
+abdabcss
+*/
+
+/*OUTPUT
+abdABCss
+*/
