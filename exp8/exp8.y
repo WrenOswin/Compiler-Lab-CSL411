@@ -33,7 +33,7 @@
 %left '*' '/'
 
 %%
-line:exp	{
+line:expr	{
 				printf("\nAbstract Syntax Tree: \n");
 				printLevelOrder($1);
 				makepostfix($1);
