@@ -605,7 +605,7 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 9 "exp8.l"
-{yylval = (int)yytext; return NUMBER;}
+{yylval = (int)yytext; return INTEGER;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
