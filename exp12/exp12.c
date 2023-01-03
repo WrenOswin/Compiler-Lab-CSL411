@@ -87,7 +87,7 @@ void change(int p, char *constant)
 	{
 		if(strcmp(arr[i].op1,arr[p].res)==0)
 			strcpy(arr[i].op1,constant);
-		else if(strcmp(arr[i].op1,arr[p].res)==0)
+		else if(strcmp(arr[i].op2,arr[p].res)==0)
 			strcpy(arr[i].op2,constant);
 	}
 }
