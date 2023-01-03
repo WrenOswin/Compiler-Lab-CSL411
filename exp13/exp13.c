@@ -28,7 +28,7 @@ void findopr()
 	if(str[i]=='=')
 	{
 		k[j].pos=i;
-		k[j++].op=':';
+		k[j++].op='=';
 	}
 	for(i=0;str[i]!='\0';i++)
 	if(str[i]=='/')
