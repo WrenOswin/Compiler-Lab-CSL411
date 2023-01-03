@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<string.h>
 char str[15],stack[15];
-int w=0, top=0, len, i;
+int w=0, top=0;
 char act[15];
 void check();
 int main()
@@ -15,7 +15,7 @@ int main()
 	printf("\n stack \t\t input symbol\t\t action");
 	printf("\n________\t ____________\t\t ______\n");
 	printf("\n$\t\t %s$\t\t\t--", str);
-	for(i = 0; i < strlen(str); i++)
+	while(w < strlen(str))
 	{
 		strcpy(act, "shift ");
 		strncat(act, &str[w], 1);
