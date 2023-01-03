@@ -62,11 +62,38 @@ void explore()
 		printf("\n");
 		i++;
 	}
-	fright(-1);
-	fleft(strlen(str));
-	printf("\t%s = %s",right, left);
+	
+	fleft(1);
+	fright(1);
+	printf("\t%s = %s", left, right);
 }
+/*
+	t = num1 + num2
+	left = num1
+	right = num2
+	t = $$$$ + $$$$
+	t = $$$$ Z $$$$
+	Z = num1 + num2
+	t = Z
 
+	t=a+b*c+d
+	k -> *5, +3, +7
+	left=b
+	right=c
+	t=a+$Z$+d
+	print(Z=b*c)
+	left=a
+	right=Z
+	t=$Y$$$+d
+	print(Y=a+Z)
+	left=Y
+	right=d
+	t=$$$$$X$
+	print(X=Y+d) 
+	left = t
+	right = X
+	print(t = X)
+*/
 void fleft(int x)
 {
 	x--;
