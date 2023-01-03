@@ -1,12 +1,3 @@
-#include <stdio.h>
-#include<string.h>
-char string[20];
-int w=0,error=0;
-void E();
-void Edash();
-void T();
-void Tdash();
-void F();
 /*
 E -> E + T
 E -> T
@@ -21,6 +12,16 @@ T -> FT'
 T' -> *FT' | ε
 F -> (E) | d
 */
+
+#include <stdio.h>
+#include<string.h>
+char string[20];
+int w=0,error=0;
+void E();
+void Edash();
+void T();
+void Tdash();
+void F();
 int main()
 {
     printf("Enter string: ");
@@ -37,6 +38,7 @@ void E(){
     T();
     Edash();
 }
+
 void Edash(){
     if(string[w]=='+'){
            w++;
@@ -57,13 +59,13 @@ void Tdash(){
            Tdash();
     }
 }
+
 void F(){
     if(string[w]=='('){
         w++;
         E();
-        if(string[w]==')'){
+        if(string[w]==')')
             w++;
-        }
         else
             error=1;
     }
