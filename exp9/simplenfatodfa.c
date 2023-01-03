@@ -8,10 +8,9 @@ struct transtab
     int final;
 }nfa[10], dfa[10];
 int n, d, f, s;
-int turn = 0;
 void initializeNFAstates();
 void inputNFAtransitions();
-void printtable(struct transtab *, int);
+void printtable(struct transtab *, int, char);
 void constructDFAtable();
 int checkifnew(char *);
 void addnewtransdfa(char *);
@@ -21,11 +20,10 @@ int main()
     initializeNFAstates();
     inputNFAtransitions();
     printf("NFA\n");
-    printtable(nfa, n);
+    printtable(nfa, n, '-');
     constructDFAtable();
     printf("DFA\n");
-    turn = 1;
-    printtable(dfa, d);
+    printtable(dfa, d, 157);
 }
 void initializeNFAstates()
 {
@@ -52,7 +50,7 @@ void inputNFAtransitions()
             printf("Enter transition %d: ", j + 1);
             scanf(" %c", &s);
             strncat(first, &s, 1);
-        }
+        } 
         sortandmakeunique(first);
         strcpy(nfa[i].trans0, first);
 
@@ -77,56 +75,29 @@ void inputNFAtransitions()
             nfa[i].final = 0;
     }
 }
-void printtable(struct transtab *tab, int rows)
+void printtable(struct transtab *tab, int rows, char ch)
 {
-    if(!turn)
+    for(int i = 0; i < rows; i++)
     {
-        for(int i = 0; i < rows; i++)
-        {
-            if(strcmp(tab[i].state,"")==0)
-                printf("-\t");
-            else
-                printf("%s\t", tab[i].state);
+        if(strcmp(tab[i].state,"")==0)
+            printf("%c\t",ch);
+        else
+            printf("%s\t", tab[i].state);
 
-            if(strcmp(tab[i].trans0,"")==0)
-                printf("-\t");
-            else
-                printf("%s\t", tab[i].trans0);
+        if(strcmp(tab[i].trans0,"")==0)
+            printf("%c\t",ch);
+        else
+            printf("%s\t", tab[i].trans0);
 
-            if(strcmp(tab[i].trans1,"")==0)
-                printf("-");
-            else
-                printf("%s", tab[i].trans1); 
+        if(strcmp(tab[i].trans1,"")==0)
+            printf("%c\t",ch);
+        else
+            printf("%s", tab[i].trans1); 
 
-            if(tab[i].final == 1)
-                printf("\t[FINAL]");
-            printf("\n");
-        }
-    }
-    else
-    {
-        for(int i = 0; i < rows; i++)
-        {
-            if(strcmp(tab[i].state,"")==0)
-                printf("%c\t", 157);
-            else
-                printf("%s\t", tab[i].state);
-
-            if(strcmp(tab[i].trans0,"")==0)
-                printf("%c\t", 157);
-            else
-                printf("%s\t", tab[i].trans0);
-
-            if(strcmp(tab[i].trans1,"")==0)
-                printf("%c", 157);
-            else
-                printf("%s", tab[i].trans1); 
-
-            if(tab[i].final == 1)
-                printf("\t[FINAL]");
-            printf("\n");
-        }
-    }
+        if(tab[i].final == 1)
+            printf("\t[FINAL]");
+        printf("\n");
+    } 
 }
 void constructDFAtable()
 {
