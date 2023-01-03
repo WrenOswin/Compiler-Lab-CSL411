@@ -34,30 +34,43 @@ int main()
 void check()
 {
 	int flag = 0;
-	if(stack[top] == 'a'||stack[top] == 'b')
+	if(stack[top] == 'a')
 	{
-		stack[top] = 'E';
-		if(stack[top] == 'a')
-			printf("\n$%s\t\t%s$\t\t\tE->a", stack, str);
-		else
-			printf("\n$%s\t\t%s$\t\t\tE->b", stack, str);
+		stack[top]='E';
+		printf("\n$%s\t\t%s$\t\t\tE->a", stack, str);
+		flag = 1;
+	}
+	if(stack[top] == 'b')
+	{
+		stack[top]='E';
+		printf("\n$%s\t\t%s$\t\t\tE->b", stack, str);
 		flag = 1;
 	}
 	if(stack[top] == '+' || stack[top] == '*' || stack[top] == '/')
 		flag = 1;
 	
-	if((!strcmp(stack, "E+E")) || (!strcmp(stack, "E/E")) || (!strcmp(stack, "E*E")))
-	{       
-		if(!strcmp(stack, "E+E"))
-			printf("\n$E\t\t%s$\t\t\tE->E+E", str);
-		else if(!strcmp(stack, "E/E"))
-			printf("\n$E\t\t%s$\t\t\tE->E/E", str);
-		else if(!strcmp(stack, "E*E"))
-			printf("\n$E\t\t%s$\t\t\tE->E*E", str);
+	if(!strcmp(stack, "E+E"))
+	{
 		strcpy(stack, "E");
 		top = 0;
-		flag=1;
+		printf("\n$%s\t\t%s$\t\t\tE->b", stack, str);
+		flag = 1;
 	}
+	if(!strcmp(stack, "E/E"))
+	{
+		strcpy(stack, "E");
+		top = 0;
+		printf("\n$%s\t\t%s$\t\t\tE->b", stack, str);
+		flag = 1;
+	}
+	if(!strcmp(stack, "E*E"))
+	{
+		strcpy(stack, "E");
+		top = 0;
+		printf("\n$%s\t\t%s$\t\t\tE->b", stack, str);
+		flag = 1;
+	}
+	
 	if(!strcmp(stack, "E") && w==strlen(str))
 	{
 		printf("\n$%s\t\t%s$\t\t\tACCEPT\n", stack, str);
