@@ -76,14 +76,9 @@ int main()
 			i++;
 		}
 		else if(buffer[i] == '+' || buffer[i] == '-' ||buffer[i] == '*' ||buffer[i] == '/' ||buffer[i] == '=')
-		{
 			printf("OPERATOR:\t%c\n", buffer[i]);
-		}
 		else
-		{
 			printf("SPECIAL SYMBOL:\t%c\n", buffer[i]);
-		}
-		
 	}
 	close(file_desc);
 	return 0;
