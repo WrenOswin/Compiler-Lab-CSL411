@@ -2,7 +2,7 @@
 #include<conio.h>
 #include<string.h>
 #include<stdlib.h>
-int i=1,j=0,no=0,tmpch=90;
+int i=1,j=0,tmpch=90;
 char str[100],left[15],right[15];
 void findopr();
 void explore();
@@ -59,7 +59,7 @@ void findopr()
 void explore()
 {
 	i=1;
-	while(k[i].op!='\0')
+	while(i < j)
 	{
 		fleft(k[i].pos);
 		fright(k[i].pos);
@@ -69,27 +69,26 @@ void explore()
 		i++;
 	}
 	fright(-1);
-	if(no==0)
-	{
-		fleft(strlen(str));
-		printf("\t%s = %s",right,left);
-		exit(0);
-	}
-	printf("\t%s = %c\n",right,str[k[--i].pos]);
+	fleft(strlen(str));
+	printf("\t%s = %s",right, left);
+	exit(0);
 }
 
 void fleft(int x)
 {
-	int w=0,flag=0;
 	x--;
-	while(x!= -1 &&str[x]!= '+' &&str[x]!='*'&&str[x]!='='&&str[x]!='\0'&&str[x]!='-'&&str[x]!='/'&&str[x]!='=')
+	char temp[20];
+	strcpy(left,"");
+	while(str[x]!= '+' &&str[x]!='-'&&str[x]!='*'&&str[x]!='/'&&str[x]!='='&&str[x]!='\0')
 	{
-		if(str[x]!='$'&& flag==0)
+		if(str[x]!='$')
 		{
-			left[w++]=str[x];
-			left[w]='\0';
+			strcpy(temp, left);
+			strcpy(left,"");
+			left[0]=str[x];
+			left[1]='\0';
+			strcat(left, temp);
 			str[x]='$';
-			flag=1;
 		}
 		x--;
 	}
@@ -97,16 +96,14 @@ void fleft(int x)
 
 void fright(int x)
 {
-  int w=0,flag=0;
   x++;
-  while(x!= -1 && str[x]!= '+'&&str[x]!='*'&&str[x]!='\0'&&str[x]!='='&&str[x]!='='&&str[x]!='-'&&str[x]!='/')
+  strcpy(right,"");
+  while(str[x]!= '+'&&str[x]!='-'&&str[x]!='*'&&str[x]!='/'&&str[x]!='\0'&&str[x]!='=')
   {
-    if(str[x]!='$'&& flag==0)
+    if(str[x]!='$')
     {
-      right[w++]=str[x];
-      right[w]='\0';
-      str[x]='$';
-      flag=1;
+		strncat(right, &str[x], 1);
+      	str[x]='$';
     }
     x++;
   }
