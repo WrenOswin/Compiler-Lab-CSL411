@@ -103,29 +103,6 @@ void printtable(struct transtab *tab, int rows, char ch)
         printf("\n");
     } 
 }
-        for(int i = 0; i < rows; i++)
-        {
-            if(strcmp(tab[i].state,"")==0)
-                printf("%c\t", 157);
-            else
-                printf("%s\t", tab[i].state);
-
-            if(strcmp(tab[i].trans0,"")==0)
-                printf("%c\t", 157);
-            else
-                printf("%s\t", tab[i].trans0);
-
-            if(strcmp(tab[i].trans1,"")==0)
-                printf("%c", 157);
-            else
-                printf("%s", tab[i].trans1); 
-
-            if(tab[i].final == 1)
-                printf("\t[FINAL]");
-            printf("\n");
-        }
-    }
-}
 void constructDFAtable()
 {
     strcpy(dfa[0].state, nfa[0].state);

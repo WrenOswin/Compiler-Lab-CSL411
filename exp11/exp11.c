@@ -1,9 +1,8 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-char ip_sym[15],stack[15];
-int ip_ptr=0, st_ptr=0, len, i;
-char temp, temp2;
+char str[15],stack[15];
+int w=0, top=0, len, i;
 char act[15];
 void check();
 int main()
@@ -12,69 +11,61 @@ int main()
 	printf("\n E->E+E\n E->E/E");
 	printf("\n E->E*E\n E->a|b");
 	printf("\n Enter the input string:");
-	scanf("%s", ip_sym);
+	scanf("%s", str);
 	printf("\n stack \t\t input symbol\t\t action");
 	printf("\n________\t ____________\t\t ______\n");
-	printf("\n$\t\t %s$\t\t\t--", ip_sym);
-	strcpy(act, "shift");
-	temp = ip_sym[ip_ptr];
-	strncat(act, &temp, 1);
-	len = strlen(ip_sym);
-	for(i = 0; i <= len-1; i++)
+	printf("\n$\t\t %s$\t\t\t--", str);
+	for(i = 0; i < strlen(str); i++)
 	{
-		stack[st_ptr] = ip_sym[ip_ptr];
-		stack[st_ptr+1] = '\0';
-		ip_sym[ip_ptr] = ' ';
-		ip_ptr++;             
-		printf("\n$%s\t\t%s$\t\t\t%s", stack, ip_sym, act);
-		strcpy(act, "shift");
-		temp = ip_sym[ip_ptr];
-		strncat(act, &temp, 1);
+		strcpy(act, "shift ");
+		strncat(act, &str[w], 1);
+		stack[top] = str[w];
+		stack[top+1] = '\0';
+		str[w] = ' ';
+		w++;             
+		printf("\n$%s\t\t%s$\t\t\t%s", stack, str, act);
 		check();
-		st_ptr++;
+		top++;
 	}
-	st_ptr++;
+	top++;
 	check();
 	return 0;
 }
 void check()
 {
 	int flag = 0;
-	temp2 = stack[st_ptr];
-	if(temp2 == 'a'||temp2 == 'b')
+	if(stack[top] == 'a'||stack[top] == 'b')
 	{
-		stack[st_ptr] = 'E';
-		if(temp2 == 'a')
-			printf("\n$%s\t\t%s$\t\t\tE->a", stack, ip_sym);
+		stack[top] = 'E';
+		if(stack[top] == 'a')
+			printf("\n$%s\t\t%s$\t\t\tE->a", stack, str);
 		else
-			printf("\n$%s\t\t%s$\t\t\tE->b", stack, ip_sym);
+			printf("\n$%s\t\t%s$\t\t\tE->b", stack, str);
 		flag = 1;
 	}
-	if(temp2 == '+'||temp2 == '*'||temp2 == '/')
+	if(stack[top] == '+' || stack[top] == '*' || stack[top] == '/')
 		flag = 1;
 	
-	if((!strcmp(stack, "E+E"))||(!strcmp(stack, "E/E"))||(!strcmp(stack, "E*E")))
+	if((!strcmp(stack, "E+E")) || (!strcmp(stack, "E/E")) || (!strcmp(stack, "E*E")))
 	{       
-		strcpy(stack, "E");
-		st_ptr = 0;
 		if(!strcmp(stack, "E+E"))
-			printf("\n$%s\t\t%s$\t\t\tE->E+E", stack, ip_sym);
+			printf("\n$E\t\t%s$\t\t\tE->E+E", str);
 		else if(!strcmp(stack, "E/E"))
-			printf("\n$%s\t\t%s$\t\t\tE->E/E", stack, ip_sym);
+			printf("\n$E\t\t%s$\t\t\tE->E/E", str);
 		else if(!strcmp(stack, "E*E"))
-			printf("\n$%s\t\t%s$\t\t\tE->E*E", stack, ip_sym);
-		else
-			printf("\n$%s\t\t%s$\t\t\tE->E+E", stack, ip_sym);
+			printf("\n$E\t\t%s$\t\t\tE->E*E", str);
+		strcpy(stack, "E");
+		top = 0;
 		flag=1;
 	}
-	if(!strcmp(stack, "E")&&ip_ptr==len)
+	if(!strcmp(stack, "E") && w==strlen(str))
 	{
-		printf("\n$%s\t\t%s$\t\t\tACCEPT\n", stack, ip_sym);
+		printf("\n$%s\t\t%s$\t\t\tACCEPT\n", stack, str);
 		exit(0);
 	}
-	if(flag==0)
+	if(flag == 0)
 	{
-		printf("\n%s\t\t%s\t\t\tREJECT\n", stack, ip_sym);
+		printf("\n%s\t\t%s\t\t\tREJECT\n", stack, str);
 		exit(0);                
 	}
 	return;
