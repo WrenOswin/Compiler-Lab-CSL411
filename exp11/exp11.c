@@ -27,7 +27,6 @@ int main()
 		check();
 		top++;
 	}
-	top++;
 	check();
 	return 0;
 }
@@ -40,12 +39,14 @@ void check()
 		printf("\n$%s\t\t%s$\t\t\tE->a", stack, str);
 		flag = 1;
 	}
+
 	if(stack[top] == 'b')
 	{
 		stack[top]='E';
 		printf("\n$%s\t\t%s$\t\t\tE->b", stack, str);
 		flag = 1;
 	}
+
 	if(stack[top] == '+' || stack[top] == '*' || stack[top] == '/')
 		flag = 1;
 	
@@ -53,29 +54,33 @@ void check()
 	{
 		strcpy(stack, "E");
 		top = 0;
-		printf("\n$%s\t\t%s$\t\t\tE->b", stack, str);
+		printf("\n$%s\t\t%s$\t\t\tE->E+E", stack, str);
 		flag = 1;
 	}
+
 	if(!strcmp(stack, "E/E"))
 	{
 		strcpy(stack, "E");
 		top = 0;
-		printf("\n$%s\t\t%s$\t\t\tE->b", stack, str);
+		printf("\n$%s\t\t%s$\t\t\tE->E/E", stack, str);
 		flag = 1;
 	}
+
 	if(!strcmp(stack, "E*E"))
 	{
 		strcpy(stack, "E");
 		top = 0;
-		printf("\n$%s\t\t%s$\t\t\tE->b", stack, str);
+		printf("\n$%s\t\t%s$\t\t\tE->E*E", stack, str);
 		flag = 1;
 	}
 	
 	if(!strcmp(stack, "E") && w==strlen(str))
 	{
-		printf("\n$%s\t\t%s$\t\t\tACCEPT\n", stack, str);
+		strcpy(stack, " ");
+		printf("\n$$%s\t\t%s\t\t\tACCEPT\n", stack, str);
 		exit(0);
 	}
+
 	if(flag == 0)
 	{
 		printf("\n%s\t\t%s\t\t\tREJECT\n", stack, str);
