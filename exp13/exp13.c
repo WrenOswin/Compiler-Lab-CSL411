@@ -25,12 +25,6 @@ void main()
 void findopr()
 {
 	for(i=0;str[i]!='\0';i++)
-	if(str[i]=='=')
-	{
-		k[j].pos=i;
-		k[j++].op='=';
-	}
-	for(i=0;str[i]!='\0';i++)
 	if(str[i]=='/')
 	{
 		k[j].pos=i;
@@ -58,7 +52,7 @@ void findopr()
 
 void explore()
 {
-	i=1;
+	i=0;
 	while(i < j)
 	{
 		fleft(k[i].pos);
@@ -71,7 +65,6 @@ void explore()
 	fright(-1);
 	fleft(strlen(str));
 	printf("\t%s = %s",right, left);
-	exit(0);
 }
 
 void fleft(int x)
@@ -85,8 +78,7 @@ void fleft(int x)
 		{
 			strcpy(temp, left);
 			strcpy(left,"");
-			left[0]=str[x];
-			left[1]='\0';
+			strncat(left, &str[x], 1);
 			strcat(left, temp);
 			str[x]='$';
 		}
