@@ -8,7 +8,6 @@ struct transtab
     int final;
 }nfa[10], dfa[10];
 int n, d, f, s;
-int turn = 0;
 void initializeNFAstates();
 void inputNFAtransitions();
 void printtable(struct transtab *, int, char);
@@ -30,12 +29,9 @@ void initializeNFAstates()
 {
     printf("Enter number of states for NFA: ");
     scanf("%d", &n);
-    printf("Enter number of states for NFA: ");
-    scanf("%d", &n);
     char statecode = '0';
     for(int i = 0; i < n; i++)
     {
-        strncpy(nfa[i].state, &statecode, 1);
         strncpy(nfa[i].state, &statecode, 1);
         statecode++;
     }
@@ -57,7 +53,7 @@ void inputNFAtransitions()
         } 
         sortandmakeunique(first);
         strcpy(nfa[i].trans0, first);
-
+        
         printf("Enter number of transitions for state %d on input 1: ", i);
         scanf("%d", &s);
         for(int j = 0; j < s; j++)
@@ -140,7 +136,7 @@ void addnewtransdfa(char *state)
                 dfa[d].final = 1;
         }
     }
-    int found = 0;
+//12
     int k = 0;
     char temp;
     temp = dfa[d].state[k];
@@ -150,9 +146,7 @@ void addnewtransdfa(char *state)
         while(strncmp(nfa[i].state, &temp, 1))
             i++;
         strcat(dfa[d].trans0, nfa[i].trans0);
-        strcat(dfa[d].trans0, nfa[i].trans0);
         sortandmakeunique(dfa[d].trans0);
-        strcat(dfa[d].trans1, nfa[i].trans1);
         strcat(dfa[d].trans1, nfa[i].trans1);
         sortandmakeunique(dfa[d].trans1);
         k++;

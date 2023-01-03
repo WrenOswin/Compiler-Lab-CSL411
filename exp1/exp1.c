@@ -12,11 +12,8 @@ int main()
 	file_desc = open("input", O_RDONLY);
 	char_count = read(file_desc, buffer, 1000);
 	buffer[char_count] = '\0';
-<<<<<<< HEAD
 	char keywords[20][100] = {"if", "for", "scanf", "printf", "while", "int", "char", "float"};
-=======
 	char keywords[15][100] = {"if", "for", "scanf", "printf", "while", "int", "char", "float"};
->>>>>>> 5d1eddeb80e9fa3cff029fc1d838e6d4150e854a
 	for(int i = 0; buffer[i]!='\0'; i++)
 	{
 		if(buffer[i] == ' ' || buffer[i] == '\n')
@@ -75,11 +72,7 @@ int main()
 		else if(buffer[i] == '+' || buffer[i] == '-' ||buffer[i] == '*' ||buffer[i] == '/' ||buffer[i] == '=')
 			printf("OPERATOR:\t%c\n", buffer[i]);
 		else
-<<<<<<< HEAD
-			printf("SPECIAL SYMBOL:\t%c\n", buffer[i]);
-=======
 			printf("SPECIAL SYMBOL:\t%c\n", buffer[i]);	
->>>>>>> 5d1eddeb80e9fa3cff029fc1d838e6d4150e854a
 	}
 	close(file_desc);
 	return 0;

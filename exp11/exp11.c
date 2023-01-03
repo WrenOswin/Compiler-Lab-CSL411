@@ -12,7 +12,7 @@ int main()
 	printf("\n E->E*E\n E->a|b");
 	printf("\n Enter the input string:");
 	scanf("%s", str);
-	printf("\n stack \t\t input symbol\t\t action");
+	printf("\n stack \t\t input string\t\t action");
 	printf("\n________\t ____________\t\t ______\n");
 	printf("\n$\t\t %s$\t\t\t--", str);
 	while(w < strlen(str))
@@ -29,6 +29,7 @@ int main()
 	}
 	check();
 	return 0;
+	//+b*b
 }
 void check()
 {

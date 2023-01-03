@@ -12,7 +12,7 @@
 .     {return yytext[0];}
 %%
 
-int yywrap (void)
+int yywrap ()
 {
   return 1;
 } 
