@@ -80,14 +80,14 @@ void output()
 			printf("\n%s %s %s %s",arr[i].op,arr[i].op1,arr[i].op2,arr[i].res);
 	}
 }
-void change(int p, char *constant)
+void change(int i, char *constant)
 {
-	int i;
-	for(i=p+1;i<n;i++)
+	int j;
+	for(j=i+1;j<n;j++)
 	{
-		if(strcmp(arr[i].op1,arr[p].res)==0)
-			strcpy(arr[i].op1,constant);
-		else if(strcmp(arr[i].op2,arr[p].res)==0)
-			strcpy(arr[i].op2,constant);
+		if(strcmp(arr[i].res,arr[j].op1)==0)
+			strcpy(arr[j].op1,constant);
+		if(strcmp(arr[i].res,arr[j].op2)==0)
+			strcpy(arr[j].op2,constant);
 	}
 }

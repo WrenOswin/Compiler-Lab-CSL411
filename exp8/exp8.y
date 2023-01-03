@@ -33,11 +33,11 @@
 
 %%
 line: expr{
-        printLevelOrder($1);
-        makepostfix($1);
-        printpostfix(postfixexp);
-        evalpostfix(postfixexp);
-}
+			printLevelOrder($1);
+			makepostfix($1);
+			printpostfix(postfixexp);
+			evalpostfix(postfixexp);
+		}
 
 expr: expr'+'expr {$$ = mknode($1, $3, "+");}
 |   expr'-'expr   {$$ = mknode($1, $3, "-");}
