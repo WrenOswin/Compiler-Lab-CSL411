@@ -25,7 +25,7 @@ void main()
 void findopr()
 {
 	for(i=0;str[i]!='\0';i++)
-	if(str[i]==':')
+	if(str[i]=='=')
 	{
 		k[j].pos=i;
 		k[j++].op=':';
@@ -64,7 +64,7 @@ void explore()
 		fleft(k[i].pos);
 		fright(k[i].pos);
 		str[k[i].pos]=tmpch--;
-		printf("\t%c := %s%c%s\t\t",str[k[i].pos],left,k[i].op,right);
+		printf("\t%c = %s%c%s\t\t",str[k[i].pos],left,k[i].op,right);
 		printf("\n");
 		i++;
 	}
@@ -72,17 +72,17 @@ void explore()
 	if(no==0)
 	{
 		fleft(strlen(str));
-		printf("\t%s := %s",right,left);
+		printf("\t%s = %s",right,left);
 		exit(0);
 	}
-	printf("\t%s := %c\n",right,str[k[--i].pos]);
+	printf("\t%s = %c\n",right,str[k[--i].pos]);
 }
 
 void fleft(int x)
 {
 	int w=0,flag=0;
 	x--;
-	while(x!= -1 &&str[x]!= '+' &&str[x]!='*'&&str[x]!='='&&str[x]!='\0'&&str[x]!='-'&&str[x]!='/'&&str[x]!=':')
+	while(x!= -1 &&str[x]!= '+' &&str[x]!='*'&&str[x]!='='&&str[x]!='\0'&&str[x]!='-'&&str[x]!='/'&&str[x]!='=')
 	{
 		if(str[x]!='$'&& flag==0)
 		{
@@ -99,7 +99,7 @@ void fright(int x)
 {
   int w=0,flag=0;
   x++;
-  while(x!= -1 && str[x]!= '+'&&str[x]!='*'&&str[x]!='\0'&&str[x]!='='&&str[x]!=':'&&str[x]!='-'&&str[x]!='/')
+  while(x!= -1 && str[x]!= '+'&&str[x]!='*'&&str[x]!='\0'&&str[x]!='='&&str[x]!='='&&str[x]!='-'&&str[x]!='/')
   {
     if(str[x]!='$'&& flag==0)
     {
