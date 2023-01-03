@@ -522,8 +522,7 @@ YY_DECL
 
 #line 8 "exp6.l"
 
-
-#line 527 "lex.yy.c"
+#line 526 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -608,35 +607,35 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 10 "exp6.l"
+#line 9 "exp6.l"
 {return INTEGER;}   
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 11 "exp6.l"
+#line 10 "exp6.l"
 {return IDENTIFIER;}                                          
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 12 "exp6.l"
+#line 11 "exp6.l"
 ;
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 13 "exp6.l"
+#line 12 "exp6.l"
 {return 0;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 14 "exp6.l"
+#line 13 "exp6.l"
 {return yytext[0];}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 15 "exp6.l"
+#line 14 "exp6.l"
 ECHO;
 	YY_BREAK
-#line 640 "lex.yy.c"
+#line 639 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1522,7 +1521,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 15 "exp6.l"
+#line 14 "exp6.l"
 
 
 int yywrap()

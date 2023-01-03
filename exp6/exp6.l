@@ -6,7 +6,6 @@
 %}
 
 %%
-
 [0-9]+                  {return INTEGER;}   
 [a-zA-Z][a-zA-Z0-9]*    {return IDENTIFIER;}                                          
 [ \t]                   ;

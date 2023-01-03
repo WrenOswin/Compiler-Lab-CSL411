@@ -9,7 +9,6 @@
 %left '+' '-'                                 
 %left '*' '/'
 
-
 %%
 Final:  expr{Result = $$;}
 expr: expr'-'expr   {$$ = $1 - $3;}
@@ -21,7 +20,7 @@ expr: expr'-'expr   {$$ = $1 - $3;}
     |INTEGER        {$$ = $1;}
     ;
 %%
-
+ 
 int main()
 {   
     printf("Enter expression: ");
@@ -36,7 +35,6 @@ int yyerror(char *s)
     printf("\nExpression is invalid");
     exit(0);
 }
-
 
 //flex exp6.l
 //bison -dy exp6.y

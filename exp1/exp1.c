@@ -12,7 +12,7 @@ int main()
 	file_desc = open("input", O_RDONLY);
 	char_count = read(file_desc, buffer, 1000);
 	buffer[char_count] = '\0';
-	char keywords[100][8] = {"if", "for", "scanf", "printf", "while", "int", "char", "float"};
+	char keywords[20][100] = {"if", "for", "scanf", "printf", "while", "int", "char", "float"};
 	for(int i = 0; buffer[i]!='\0'; i++)
 	{
 		if(buffer[i] == ' ' || buffer[i] == '\n')

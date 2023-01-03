@@ -299,8 +299,8 @@ static yyconst int yy_ec[256] =
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    2,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    4,    4,    1,    4,    1,    5,    6,    6,    6,
-        6,    6,    6,    6,    6,    6,    6,    1,    1,    1,
-        4,    1,    1,    1,    7,    7,    7,    7,    7,    7,
+        6,    6,    6,    6,    6,    6,    6,    1,    1,    4,
+        4,    4,    1,    1,    7,    7,    7,    7,    7,    7,
         7,    7,    7,    7,    7,    7,    7,    7,    7,    7,
         7,    7,    7,    7,    7,    7,    7,    7,    7,    7,
         1,    1,    1,    1,    1,    1,    8,    7,    7,    7,
@@ -539,7 +539,7 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 14 "exp2.l"
+#line 13 "exp2.l"
 
 #line 545 "lex.yy.c"
 
@@ -626,72 +626,72 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 15 "exp2.l"
+#line 14 "exp2.l"
 {printf("<KEYWORD, %s>\n", yytext);} 
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 16 "exp2.l"
+#line 15 "exp2.l"
 {printf("<KEYWORD, %s>\n", yytext);} 
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 17 "exp2.l"
+#line 16 "exp2.l"
 {printf("<KEYWORD, %s>\n", yytext);} 
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 18 "exp2.l"
+#line 17 "exp2.l"
 {printf("<KEYWORD, %s>\n", yytext);} 
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 19 "exp2.l"
+#line 18 "exp2.l"
 {printf("<KEYWORD, %s>\n", yytext);} 
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 20 "exp2.l"
+#line 19 "exp2.l"
 {printf("<KEYWORD, %s>\n", yytext);}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 21 "exp2.l"
+#line 20 "exp2.l"
 {printf("<KEYWORD, %s>\n", yytext);}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 22 "exp2.l"
+#line 21 "exp2.l"
 {printf("<IDENTIFIER, %s>\n", yytext);}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 23 "exp2.l"
+#line 22 "exp2.l"
 {printf("<NUMERIC, %s>\n", yytext);}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 24 "exp2.l"
+#line 23 "exp2.l"
 {printf("<OPERATOR, %s>\n", yytext);}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 25 "exp2.l"
+#line 24 "exp2.l"
 {}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 26 "exp2.l"
+#line 25 "exp2.l"
 {}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 27 "exp2.l"
-{printf("<%s>\n", yytext);}
+#line 26 "exp2.l"
+{printf("<SPECIAL CHARACTER, %s>\n", yytext);}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 28 "exp2.l"
+#line 27 "exp2.l"
 ECHO;
 	YY_BREAK
 #line 698 "lex.yy.c"
@@ -1580,7 +1580,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 28 "exp2.l"
+#line 27 "exp2.l"
 
 
 int yywrap()
@@ -1589,8 +1589,32 @@ int yywrap()
 }
 int main()
 {
-    FILE *fp = fopen("input", "r");
-    yyin = fp;
+    yyin = fopen("input.txt", "r");
     yylex();
     return 0;
 }
+
+
+/*INPUT FILE
+int a = 5;
+int b = 10;
+a = b   //comment 1
+val = a < b
+//this is last comment
+*/
+
+/*OUTPUT
+<KEYWORD, int>
+<IDENTIFIER, a>
+<OPERATOR, =>
+<NUMERIC, 5>
+<;>
+<KEYWORD, int>
+<IDENTIFIER, b>
+<OPERATOR, =>
+<NUMERIC, 10>
+<;>
+<IDENTIFIER, a>
+<OPERATOR, =>
+<IDENTIFIER, b>
+*/

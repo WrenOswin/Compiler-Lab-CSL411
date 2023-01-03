@@ -2,12 +2,12 @@
     #include<stdio.h>
     #include<stdlib.h>
     int yyerror(char *);
+    extern FILE* yyin;
 %}
 
 %token INTEGER IDENTIFIER 
 %left '+' '-'                                 
 %left '*' '/'
-
 
 %%
 expr: expr'-'expr
@@ -23,7 +23,8 @@ expr: expr'-'expr
 
 int main()
 {   
-    printf("Enter expression: ");
+    //printf("Enter expression: ");
+    yyin = fopen("input.txt", "r"); 
     yyparse();
     printf("\nExpression is valid\n");
     return 0;

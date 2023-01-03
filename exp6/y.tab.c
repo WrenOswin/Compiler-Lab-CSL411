@@ -72,8 +72,8 @@
 
     #include<stdio.h>
     #include<stdlib.h>
-    extern FILE *yyin;
     int yyerror(char *);
+    extern FILE* yyin;
 
 
 /* Line 189 of yacc.c  */
@@ -410,7 +410,7 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    14,    14,    15,    16,    17,    18,    19,    20,    21
+       0,    13,    13,    14,    15,    16,    17,    18,    19,    20
 };
 #endif
 
@@ -1526,12 +1526,13 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 23 "exp6.y"
+#line 22 "exp6.y"
 
 
 int main()
 {   
-    printf("Enter expression: ");
+    //printf("Enter expression: ");
+    yyin = fopen("input.txt", "r"); 
     yyparse();
     printf("\nExpression is valid\n");
     return 0;
@@ -1546,5 +1547,5 @@ int yyerror(char *s)
 
 //flex exp6.l
 //bison -dy exp6.y
-//gcc lex.yy.c y.tab.c -o exp6
-//./exe
+//gcc lex.yy.c y.tab.c 
+

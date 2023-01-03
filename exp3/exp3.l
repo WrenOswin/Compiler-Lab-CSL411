@@ -7,9 +7,9 @@
 %}
 
 %%
-\n {nchars++;nlines++;}
-[^ \n\t]+ {nwords++, nchars=nchars+yyleng;}
-. {nchars++;}
+\n          {nchars++;nlines++;}
+[^ \n\t]+   {nwords++, nchars=nchars+yyleng;}
+.           {nchars++;}
 %%
 
 int yywrap()
@@ -18,8 +18,7 @@ int yywrap()
 }
 int main()
 {
-    FILE *fp = fopen("input", "r");
-    yyin = fp;
+    yyin = fopen("input", "r");
     yylex();
     printf("No: of lines = %d\nNo: of words = %d\nNo: of chars = %d\n", nlines, nwords, nchars);
     return 0;

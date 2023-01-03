@@ -282,11 +282,11 @@ static void yy_fatal_error YY_PROTO(( yyconst char msg[] ));
 	*yy_cp = '\0'; \
 	yy_c_buf_p = yy_cp;
 
-#define YY_NUM_RULES 3
-#define YY_END_OF_BUFFER 4
+#define YY_NUM_RULES 4
+#define YY_END_OF_BUFFER 5
 static yyconst short int yy_accept[10] =
     {   0,
-        0,    0,    4,    2,    3,    2,    0,    1,    0
+        0,    0,    5,    3,    4,    3,    2,    1,    0
     } ;
 
 static yyconst int yy_ec[256] =
@@ -614,15 +614,24 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 14 "exp4.l"
-{printf("%s", yytext);}   
+#line 13 "exp4.l"
+{
+    yytext[0] = 'x';
+    yytext[1] = 'y';
+    printf("%s", yytext);
+}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 15 "exp4.l"
+#line 18 "exp4.l"
+{printf("%s", yytext);}   
+	YY_BREAK
+case 4:
+YY_RULE_SETUP
+#line 19 "exp4.l"
 ECHO;
 	YY_BREAK
-#line 626 "lex.yy.c"
+#line 635 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1508,7 +1517,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 15 "exp4.l"
+#line 19 "exp4.l"
 
 
 int main()
@@ -1530,3 +1539,4 @@ abdabcss
 /*OUTPUT
 abdABCss
 */
+

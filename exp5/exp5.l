@@ -13,8 +13,7 @@
 int yywrap(){   return 1;   }
 int main()
 {
-    FILE *finput = fopen("input", "r");
-    yyin = finput;
+    yyin = fopen("input", "r");
     yylex();
     printf("No: of vowels = %d\nNo: of consonants = %d\n", vowels, consonants);
     return 0;

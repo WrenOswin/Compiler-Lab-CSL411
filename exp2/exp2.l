@@ -6,10 +6,9 @@
 %}
 
 ID [a-zA-Z][a-zA-Z0-9]*
-DIGIT [0-9]
-OP [-+*/=]
+DIGIT [0-9]+
+OP [-+*<>/=]
 comment "//".*
-
 
 %%
 "if"            {printf("<KEYWORD, %s>\n", yytext);} 
@@ -20,11 +19,11 @@ comment "//".*
 "int"           {printf("<KEYWORD, %s>\n", yytext);}
 "float"         {printf("<KEYWORD, %s>\n", yytext);}
 {ID}            {printf("<IDENTIFIER, %s>\n", yytext);}
-{DIGIT}+        {printf("<NUMERIC, %s>\n", yytext);}
+{DIGIT}         {printf("<NUMERIC, %s>\n", yytext);}
 {OP}            {printf("<OPERATOR, %s>\n", yytext);}
 {comment}       {}
 [ \t\n]         {}
-.               {printf("<%s>\n", yytext);}
+.               {printf("<SPECIAL CHARACTER, %s>\n", yytext);}
 %%
 
 int yywrap()
@@ -33,8 +32,7 @@ int yywrap()
 }
 int main()
 {
-    FILE *fp = fopen("input", "r");
-    yyin = fp;
+    yyin = fopen("input.txt", "r");
     yylex();
     return 0;
 }
@@ -44,6 +42,7 @@ int main()
 int a = 5;
 int b = 10;
 a = b   //comment 1
+val = a < b
 //this is last comment
 */
 
