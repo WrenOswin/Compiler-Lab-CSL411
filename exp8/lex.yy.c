@@ -362,10 +362,11 @@ char *yytext;
 #line 1 "exp8.l"
 #define INITIAL 0
 #line 2 "exp8.l"
-  #include<stdio.h>
-  #include<stdlib.h>
-  #include "y.tab.h"
-#line 369 "lex.yy.c"
+    #include<stdio.h>
+    #include<stdlib.h>
+    #include "y.tab.h"
+    extern int yylval;
+#line 370 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -516,9 +517,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 6 "exp8.l"
+#line 8 "exp8.l"
 
-#line 522 "lex.yy.c"
+#line 523 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -603,30 +604,30 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 7 "exp8.l"
-{yylval = (int)yytext; return NUMBER;}
+#line 9 "exp8.l"
+{yylval = (int)yytext; return INTEGER;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 8 "exp8.l"
-;
+#line 10 "exp8.l"
+{}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 9 "exp8.l"
-return 0;
+#line 11 "exp8.l"
+{return 0;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 10 "exp8.l"
-return yytext[0];
+#line 12 "exp8.l"
+{return yytext[0];}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 11 "exp8.l"
+#line 13 "exp8.l"
 ECHO;
 	YY_BREAK
-#line 630 "lex.yy.c"
+#line 631 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1512,7 +1513,10 @@ int main()
 	return 0;
 	}
 #endif
-#line 11 "exp8.l"
+#line 13 "exp8.l"
+
 
 int yywrap (void)
-{return 1;} 
+{
+  return 1;
+} 

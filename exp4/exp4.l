@@ -4,11 +4,11 @@
 %}
 
 %%
-"abc" {
-        yytext[0] = 'A';
-        yytext[1] = 'B';
-        yytext[2] = 'C';
-        printf("%s", yytext);
+"abc"   {
+            yytext[0] = 'A';
+            yytext[1] = 'B';
+            yytext[2] = 'C';
+            printf("%s", yytext);
         }
 
 .   {printf("%s", yytext);}   

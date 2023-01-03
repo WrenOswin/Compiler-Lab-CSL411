@@ -25,3 +25,9 @@
 12. Constant propagation
 
 13. Simple intermediate code generator
+
+lex filename.l
+
+bison -dy filename.y
+
+gcc lex.yy.c y.tab.c

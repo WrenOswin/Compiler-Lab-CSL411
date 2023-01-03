@@ -37,7 +37,6 @@ int main()
     return 0;
 }
 
-
 /*INPUT FILE
 int a = 5;
 int b = 10;
@@ -46,7 +45,8 @@ val = a < b
 //this is last comment
 */
 
-/*OUTPUT
+/*
+OUTPUT
 <KEYWORD, int>
 <IDENTIFIER, a>
 <OPERATOR, =>

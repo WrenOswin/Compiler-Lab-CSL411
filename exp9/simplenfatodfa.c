@@ -8,6 +8,7 @@ struct transtab
     int final;
 }nfa[10], dfa[10];
 int n, d, f, s;
+int turn = 0;
 void initializeNFAstates();
 void inputNFAtransitions();
 void printtable(struct transtab *, int, char);
@@ -29,9 +30,12 @@ void initializeNFAstates()
 {
     printf("Enter number of states for NFA: ");
     scanf("%d", &n);
+    printf("Enter number of states for NFA: ");
+    scanf("%d", &n);
     char statecode = '0';
     for(int i = 0; i < n; i++)
     {
+        strncpy(nfa[i].state, &statecode, 1);
         strncpy(nfa[i].state, &statecode, 1);
         statecode++;
     }
@@ -99,6 +103,29 @@ void printtable(struct transtab *tab, int rows, char ch)
         printf("\n");
     } 
 }
+        for(int i = 0; i < rows; i++)
+        {
+            if(strcmp(tab[i].state,"")==0)
+                printf("%c\t", 157);
+            else
+                printf("%s\t", tab[i].state);
+
+            if(strcmp(tab[i].trans0,"")==0)
+                printf("%c\t", 157);
+            else
+                printf("%s\t", tab[i].trans0);
+
+            if(strcmp(tab[i].trans1,"")==0)
+                printf("%c", 157);
+            else
+                printf("%s", tab[i].trans1); 
+
+            if(tab[i].final == 1)
+                printf("\t[FINAL]");
+            printf("\n");
+        }
+    }
+}
 void constructDFAtable()
 {
     strcpy(dfa[0].state, nfa[0].state);
@@ -146,7 +173,9 @@ void addnewtransdfa(char *state)
         while(strncmp(nfa[i].state, &temp, 1))
             i++;
         strcat(dfa[d].trans0, nfa[i].trans0);
+        strcat(dfa[d].trans0, nfa[i].trans0);
         sortandmakeunique(dfa[d].trans0);
+        strcat(dfa[d].trans1, nfa[i].trans1);
         strcat(dfa[d].trans1, nfa[i].trans1);
         sortandmakeunique(dfa[d].trans1);
         k++;

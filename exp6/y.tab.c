@@ -77,7 +77,7 @@
 
 
 /* Line 189 of yacc.c  */
-#line 81 "y.tab.c"
+#line 80 "y.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -127,7 +127,7 @@ typedef int YYSTYPE;
 
 
 /* Line 264 of yacc.c  */
-#line 131 "y.tab.c"
+#line 130 "y.tab.c"
 
 #ifdef short
 # undef short
@@ -1314,7 +1314,7 @@ yyreduce:
       
 
 /* Line 1455 of yacc.c  */
-#line 1318 "y.tab.c"
+#line 1317 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
