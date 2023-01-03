@@ -136,7 +136,6 @@ void addnewtransdfa(char *state)
                 dfa[d].final = 1;
         }
     }
-//12
     int k = 0;
     char temp;
     temp = dfa[d].state[k];

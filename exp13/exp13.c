@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<conio.h>
 #include<string.h>
+#include<stdlib.h>
 int i=1,j=0,no=0,tmpch=90;
 char str[100],left[15],right[15];
 void findopr();
@@ -15,7 +16,6 @@ struct exp
 
 void main()
 {
-	printf("\t\tINTERMEDIATE CODE GENERATION\n\n");
 	printf("Enter the Expression :");
 	scanf("%s",str);
 	printf("The intermediate code:\n");
