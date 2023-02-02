@@ -14,6 +14,8 @@
 
 int yywrap()
 {
+    nchars++;
+    nlines++;
     return 1;
 }
 int main()
