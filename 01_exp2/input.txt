@@ -1,5 +1,0 @@
-int a = 5;
-int b = 10;
-a = b;   //comment 1
-val = a < b;
-//this is last comment
