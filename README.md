@@ -28,6 +28,10 @@
 
 14. First and Follow
 
+15. YACC program to recognise string with grammar a^n b^n n>=0
+
+16. Calculator that takes input either hex or decimal and prints output in both hex and decimal. (Using lex and yacc)
+
 lex filename.l
 
 bison -dy filename.y
