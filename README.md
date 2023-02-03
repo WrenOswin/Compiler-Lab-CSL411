@@ -32,6 +32,8 @@
 
 16. Calculator that takes input either hex or decimal and prints output in both hex and decimal. (Using lex and yacc)
 
+17. Intermediate code generator using lex and yacc
+
 lex filename.l
 
 bison -dy filename.y
