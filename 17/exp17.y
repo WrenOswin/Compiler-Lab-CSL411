@@ -4,10 +4,9 @@
     #include<stdlib.h>
     int yyerror(char *);
     int yylex();
-    char* addToStruct(char operand1[20] ,char operand2[20] , char);
+    char* printRow(char operand1[20] ,char operand2[20] , char);
     char temp='A'-1;
     char t[20];
-    int count=0;
 %}
 
 %token INTEGER IDENTIFIER
@@ -18,11 +17,11 @@
 }
 
 %%
-final: IDENTIFIER '=' expr{addToStruct($<sym>1,$<sym>3,'=');}
-expr: expr'+'expr {strcpy($<sym>$,addToStruct($<sym>1,$<sym>3,'+'));}
-    | expr'-'expr {strcpy($<sym>$,addToStruct($<sym>1,$<sym>3,'-'));}
-    | expr'*'expr {strcpy($<sym>$,addToStruct($<sym>1,$<sym>3,'*'));}
-    | expr'/'expr {strcpy($<sym>$,addToStruct($<sym>1,$<sym>3,'/'));}
+final: IDENTIFIER '=' expr{printRow($<sym>1,$<sym>3,'=');}
+expr: expr'+'expr {strcpy($<sym>$,printRow($<sym>1,$<sym>3,'+'));}
+    | expr'-'expr {strcpy($<sym>$,printRow($<sym>1,$<sym>3,'-'));}
+    | expr'*'expr {strcpy($<sym>$,printRow($<sym>1,$<sym>3,'*'));}
+    | expr'/'expr {strcpy($<sym>$,printRow($<sym>1,$<sym>3,'/'));}
     | INTEGER {strcpy($<sym>$,$<sym>1);}
     | IDENTIFIER {strcpy($<sym>$,$<sym>1);};
 %%
@@ -38,7 +37,7 @@ int yyerror(char *s){
     exit(0);
 }
 
-char* addToStruct(char operand1[20],char operand2[20],char op){
+char* printRow(char operand1[20],char operand2[20],char op){
     temp++;
     printf("%c := %s %c %s\n",temp,operand1,op,operand2);
     sprintf(t,"%c",temp);
