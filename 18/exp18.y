@@ -1,34 +1,30 @@
 %{
-    /* Definition section */
     #include <stdio.h>
     #include <stdlib.h>
     extern char* yytext;
     int yylex();
     int yyerror(char *);
-    void A1();
-    void A2();
-    void A3();
+    void push(char c);
+    void pop();
+    void printc();
     char stack[100];
-    int top=0;
+    int top=-1;
 %}
   
-%token    ID
-%left    '+' '-'
-%left    '*' '/'
+%token ID
+%left '+' '-'
+%left '*' '/'
 
-%%
-  
-line  :  expr
-expr  :  expr'+'{A1();}expr{A2();}
-   |  expr'-'{A1();}expr{A2();}
-   |  expr'*'{A1();}expr{A2();}
-   |  expr'/'{A1();}expr{A2();}
-   |  '('expr{A2();}')'
-   |  ID{A3();}
+%%  
+expr  :  expr'+'expr{push('+');pop();}
+   |  expr'-'expr{push('-');pop();}
+   |  expr'*'expr{push('*');pop();}
+   |  expr'/'expr{push('/');pop();}
+   |  '('expr')'{pop();}
+   |  ID{printc();}
    ;
 %%
   
-//driver code
 int main()
 {
     printf("Enter infix expression:  "); 
@@ -40,17 +36,15 @@ int yyerror(char *s){
     printf("Error\n");
     exit(0);
 }
-void A1()
+void push(char c)
 {
-    stack[top++]=yytext[0];
+    stack[++top]=c;
 }
-  
-void A2()
+void pop()
 {
-    printf("%c", stack[--top]);
-}
-  
-void A3()
+    printf("%c ", stack[top--]);
+} 
+void printc()
 {
     printf("%s ", yytext);
 }
