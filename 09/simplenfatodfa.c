@@ -132,16 +132,17 @@ void addnewtransdfa(char *state)
     for(i = 0; i < strlen(state); i++)
     {
         for(j = 0; j < n; j++)
-        {
-            if(strncmp(nfa[j].state, &state[i], 1)==0 && nfa[j].final == 1)
-                dfa[d].final = 1;
-            if(!strncmp(nfa[j].state,&state[i],1))
-               break;
+        {       
+            if(!strncmp(nfa[j].state,&state[i],1)){
+                if(nfa[j].final == 1)
+                    dfa[d].final = 1;
+                strcat(dfa[d].trans0, nfa[j].trans0);
+                sortandmakeunique(dfa[d].trans0);
+                strcat(dfa[d].trans1, nfa[j].trans1);
+                sortandmakeunique(dfa[d].trans1);
+                break;
+            }
         }
-        strcat(dfa[d].trans0, nfa[j].trans0);
-        sortandmakeunique(dfa[d].trans0);
-        strcat(dfa[d].trans1, nfa[j].trans1);
-        sortandmakeunique(dfa[d].trans1); 
     }
     d++;
 }
