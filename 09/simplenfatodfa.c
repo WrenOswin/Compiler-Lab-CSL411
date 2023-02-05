@@ -127,29 +127,21 @@ int checkifnew(char *s)
 }
 void addnewtransdfa(char *state)
 {
+    int i,j;
     strcpy(dfa[d].state, state);
-    for(int i = 0; i < strlen(state); i++)
+    for(i = 0; i < strlen(state); i++)
     {
-        for(int j = 0; j < n; j++)
+        for(j = 0; j < n; j++)
         {
             if(strncmp(nfa[j].state, &state[i], 1)==0 && nfa[j].final == 1)
                 dfa[d].final = 1;
+            if(!strncmp(nfa[j].state,&state[i],1))
+               break;
         }
-    }
-    int k = 0;
-    char temp;
-    temp = dfa[d].state[k];
-    while(temp!='\0')
-    {
-        int i = 0;
-        while(strncmp(nfa[i].state, &temp, 1))
-            i++;
-        strcat(dfa[d].trans0, nfa[i].trans0);
+        strcat(dfa[d].trans0, nfa[j].trans0);
         sortandmakeunique(dfa[d].trans0);
-        strcat(dfa[d].trans1, nfa[i].trans1);
-        sortandmakeunique(dfa[d].trans1);
-        k++;
-        temp = dfa[d].state[k];
+        strcat(dfa[d].trans1, nfa[j].trans1);
+        sortandmakeunique(dfa[d].trans1); 
     }
     d++;
 }
@@ -173,11 +165,10 @@ void sortandmakeunique(char* s)
     char ch = ' ';
     while(s[i]!='\0')
     {
-        char nch = s[i];
-        if(nch != ch)
+        if(s[i] != ch)
         {
-            strncat(temporary, &nch, 1);
-            ch = nch;
+            strncat(temporary, &s[i], 1);
+            ch = s[i];
         }
         i++;
     }
