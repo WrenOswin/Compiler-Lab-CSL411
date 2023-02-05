@@ -34,6 +34,8 @@
 
 17. Intermediate code generator using lex and yacc
 
+18. Infix to postfix using lex and yacc
+
 lex filename.l
 
 bison -dy filename.y
