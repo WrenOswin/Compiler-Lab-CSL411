@@ -22,10 +22,7 @@
 %left '*' '/'
 
 %%
-line: expr{
-			printAST($1, 0);
-		}
-
+line: expr{printAST($1, 0);}
 expr: expr'+'expr {$$ = mknode($1, $3, "+",1);}
 |   expr'-'expr   {$$ = mknode($1, $3, "-",1);}
 |   expr'*'expr   {$$ = mknode($1, $3, "*",1);} 
