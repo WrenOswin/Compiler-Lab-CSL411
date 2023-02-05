@@ -8,7 +8,7 @@
 
 %%
 [0-9]+  {yylval=atoi(yytext);return INTEGER;}
-[0-9A-F]+   {yylval=(int)strtol(yytext, NULL, 16);return INTEGER;}
+0x[0-9A-F]+   {yylval=(int)strtol(yytext, NULL, 16);return INTEGER;}
 [ \t]   ;
 [\n]    {return 0;}
 .   {return yytext[0];}
