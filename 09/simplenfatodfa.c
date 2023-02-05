@@ -92,10 +92,10 @@ void printtable(struct transtab *tab, int rows, char ch)
         if(strcmp(tab[i].trans1,"")==0)
             printf("%c\t",ch);
         else
-            printf("%s", tab[i].trans1); 
+            printf("%s\t", tab[i].trans1); 
 
         if(tab[i].final == 1)
-            printf("\t[FINAL]");
+            printf("[FINAL]");
         printf("\n");
     } 
 }
