@@ -2,7 +2,6 @@
     #include<stdio.h>
     #include<stdlib.h>
     #include<string.h>
-    #include<math.h>
     #define YYSTYPE struct node*
     #define COUNT 10
     struct node
@@ -15,7 +14,7 @@
     int yylex();
     int yyerror(char *);
     struct node* mknode(struct node*, struct node*, char *, int);
-    void print2DUtil(struct node* root, int space);
+    void printAST(struct node* root, int space);
 %}
 
 %token INTEGER
@@ -24,7 +23,7 @@
 
 %%
 line: expr{
-			print2DUtil($1, 0);
+			printAST($1, 0);
 		}
 
 expr: expr'+'expr {$$ = mknode($1, $3, "+",1);}
@@ -61,14 +60,14 @@ struct node* mknode(struct node* left, struct node* right, char* token, int f)
     return newnode;
 }
 
-void print2DUtil(struct node* root, int space)
+void printAST(struct node* root, int space)
 {
     if (root == NULL)
         return;
 
     space += COUNT;
  
-    print2DUtil(root->right, space);
+    printAST(root->right, space);
 
     printf("\n");
     for (int i = COUNT; i < space; i++)
@@ -76,7 +75,7 @@ void print2DUtil(struct node* root, int space)
         
     printf("%s\n", root->token);
  
-    print2DUtil(root->left, space);
+    printAST(root->left, space);
 }
 
 int yyerror(char *s){
