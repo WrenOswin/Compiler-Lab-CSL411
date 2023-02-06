@@ -36,6 +36,8 @@
 
 18. Infix to postfix using lex and yacc
 
+19. Implement yacc program for shift reduce parser or shift reduce parsing techniques for the grammar E: E+E|E-E|E*E|id
+
 lex filename.l
 
 bison -dy filename.y
